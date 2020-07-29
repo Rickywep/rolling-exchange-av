@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import { View } from 'react-native'
 import { TextInput, Button } from 'react-native-paper'
 
-const FavoritesSearchbar = ({ appTheme, changeScreen }) => {
+const FavoritesTop = ({ appTheme, goOne }) => {
   const [ input, setInput ] = useState('')
 
   return(
     <View style={getStyle(appTheme, 'favoritesSearchbar')}>
       <Button
-        onPress={() => changeScreen(true)}
+        onPress={goOne}
         color={appTheme.link}
         icon="keyboard-backspace"
       />
@@ -42,4 +42,4 @@ const getStyle = (theme, component) => {
   }
 }
 
-export default FavoritesSearchbar
+export default FavoritesTop
