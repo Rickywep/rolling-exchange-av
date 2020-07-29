@@ -11,6 +11,7 @@ import currencies from '../constants/currencies';
 import { darkTheme } from '../constants/colors'
 import { lightTheme } from '../constants/colors'
 import { darkTheme as defaultTheme } from '../constants/colors'
+import ProfileTab from './ProfileTab';
 
 function TabOne({ appTheme, fromCurrency, setFromCurrency, amount, setAmount, allCurrencies, updateTheme }) {
   const navigation = useNavigation();
@@ -31,20 +32,20 @@ function TabOne({ appTheme, fromCurrency, setFromCurrency, amount, setAmount, al
         goTwo={goTwo}
         allCurrencies={allCurrencies}
       />
-      <CurrenciesBottom appTheme={appTheme} updateTheme={updateTheme} />
+      {/* <CurrenciesBottom appTheme={appTheme} updateTheme={updateTheme} /> */}
     </Fragment>
   );
 }
 
 function TabTwo({ appTheme, allCurrencies, addFavoriteCurrency, updateCurrency }) {
   const navigation = useNavigation();
-  const goOne = () => navigation.navigate('One')
+  const goCurrency = () => navigation.navigate('Currency')
 
   return (
     <Fragment>
       <FavoritesTop
         appTheme={appTheme}
-        goOne={goOne}
+        goCurrency={goCurrency}
       />
       <FavoritesContainer
         appTheme={appTheme}
@@ -83,19 +84,21 @@ export default function App() {
 
 
   return (
-    
+
     <NavigationContainer>
       <Tab.Navigator
         // style={getStyle(appTheme, 'topContainer')}
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
-            if (route.name === 'One') {
+            if (route.name === 'Currency') {
               iconName = focused
-                ? 'ios-information-circle'
-                : 'ios-information-circle-outline';
+                ? 'ios-wallet'
+                : 'ios-wallet';
             } else if (route.name === 'Two') {
               iconName = focused ? 'ios-list-box' : 'ios-list';
+            }else if (route.name === 'Profile') {
+              iconName = focused ? 'ios-person' : 'ios-person';
             }
             // You can return any component that you like here!
             return <Ionicons name={iconName} size={size} color={color} />;
@@ -104,13 +107,20 @@ export default function App() {
         tabBarOptions={{
           activeTintColor: 'white',
           inactiveTintColor: 'gray',
-          style:{
+          style: {
             backgroundColor: `#03071E`,
           },
         }}
       >
         <Tab.Screen
-          name="One"
+          name="Profile"
+          children={()=> <ProfileTab
+            appTheme={appTheme}
+            updateTheme={updateTheme}
+          />}
+        />
+        <Tab.Screen
+          name="Currency"
           children={() => <TabOne
             appTheme={appTheme}
             fromCurrency={fromCurrency}
