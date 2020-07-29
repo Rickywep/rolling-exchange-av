@@ -1,6 +1,6 @@
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import React, { useState, Fragment } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CurrenciesTop from '../screens/currencies/CurrenciesTop';
 import CurrenciesBottom from '../screens/currencies/CurrenciesBottom'
@@ -12,10 +12,9 @@ import { darkTheme } from '../constants/colors'
 import { lightTheme } from '../constants/colors'
 import { darkTheme as defaultTheme } from '../constants/colors'
 
-function TabOne({ navigation, appTheme, fromCurrency, setFromCurrency,amount, setAmount, allCurrencies,updateTheme }) {
-
+function TabOne({ appTheme, fromCurrency, setFromCurrency, amount, setAmount, allCurrencies, updateTheme }) {
+  const navigation = useNavigation();
   const goTwo = () => navigation.navigate('Two')
-
   return (
     <Fragment>
       <CurrenciesTop
@@ -31,15 +30,14 @@ function TabOne({ navigation, appTheme, fromCurrency, setFromCurrency,amount, se
         amount={amount}
         goTwo={goTwo}
         allCurrencies={allCurrencies}
-        navigation={navigation}
       />
       <CurrenciesBottom appTheme={appTheme} updateTheme={updateTheme} />
     </Fragment>
   );
 }
 
-function TabTwo({ navigation, appTheme,allCurrencies,addFavoriteCurrency,updateCurrency }) {
-
+function TabTwo({ appTheme, allCurrencies, addFavoriteCurrency, updateCurrency }) {
+  const navigation = useNavigation();
   const goOne = () => navigation.navigate('One')
 
   return (
@@ -82,9 +80,13 @@ export default function App() {
     setAllCurrencies(temp_allCurrencies)
   }
 
+
+
   return (
+    
     <NavigationContainer>
       <Tab.Navigator
+        // style={getStyle(appTheme, 'topContainer')}
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
@@ -100,13 +102,16 @@ export default function App() {
           },
         })}
         tabBarOptions={{
-          activeTintColor: 'tomato',
+          activeTintColor: 'white',
           inactiveTintColor: 'gray',
+          style:{
+            backgroundColor: `#03071E`,
+          },
         }}
       >
-        <Tab.Screen 
-          name="One" 
-          children={()=><TabOne
+        <Tab.Screen
+          name="One"
+          children={() => <TabOne
             appTheme={appTheme}
             fromCurrency={fromCurrency}
             setFromCurrency={setFromCurrency}
@@ -116,9 +121,9 @@ export default function App() {
             updateTheme={updateTheme}
           />}
         />
-        <Tab.Screen 
-          name="Two" 
-          children={()=><TabTwo
+        <Tab.Screen
+          name="Two"
+          children={() => <TabTwo
             appTheme={appTheme}
             allCurrencies={allCurrencies}
             addFavoriteCurrency={addFavoriteCurrency}
