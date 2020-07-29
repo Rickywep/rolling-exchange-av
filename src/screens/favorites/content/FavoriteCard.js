@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { View, Text, Image } from 'react-native'
 import { Button } from 'react-native-paper'
 
-import flags from '../../constants/flags'
+import flags from '../../../constants/flags'
 
 const FavoriteCard = ({
   appTheme,
