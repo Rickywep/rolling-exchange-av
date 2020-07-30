@@ -1,12 +1,17 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React, { Fragment } from 'react'
 import ProfileTop from '../screens/profile/ProfileTop'
+import ProfileContent from '../screens/profile/ProfileContent'
 
-export default function ProfileTab({appTheme, updateTheme}) {
+export default function ProfileTab({ appTheme, updateTheme }) {
     return (
-        <ProfileTop 
-            appTheme={appTheme}
-            updateTheme={updateTheme}
-        />
+        <Fragment>
+            <ProfileTop
+                appTheme={appTheme}
+                updateTheme={updateTheme}
+            />
+            <ProfileContent
+                appTheme={appTheme}
+            />
+        </Fragment>
     )
 }
