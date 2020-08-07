@@ -1,72 +1,84 @@
 import React from 'react';
-import { Card, Title, Paragraph } from 'react-native-paper';
+import { Title, Button } from 'react-native-paper';
 import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 
 const ProfileContent = ({ appTheme }) => {
-    return (
-        <View style={getStyle(appTheme, 'profileContent')}>
-            <Title style={getStyle(appTheme, 'cuentasText')}>Tus Cuentas</Title>
-            <Card style={getStyle(appTheme, 'cuentas')}>
-                <Card.Content style={getStyle(appTheme, 'cuentasContainer')}>
-                    <Title style={getStyle(appTheme, 'cuentasText')}>
-                        <AwesomeIcon name='dollar' style={{ marginRight: "2px", fontSize: "1.3rem" }} />800
-                        <br />
-                        <Paragraph>Cuenta en dolares</Paragraph>
-                    </Title>
-                    <AwesomeIcon name='ellipsis-v' style={{ marginRight: "10px", fontSize: "1.3rem" }} />
-                </Card.Content>
-            </Card>
-            <Card style={getStyle(appTheme, 'cuentas')}>
-                <Card.Content style={getStyle(appTheme, 'cuentasContainer')}>
-                    <Title style={getStyle(appTheme, 'cuentasText')}>
-                        <AwesomeIcon name='euro' style={{ marginRight: "2px", fontSize: "1.3rem" }} />1900
-                        <br />
-                        <Paragraph>Cuenta en euros</Paragraph>
-                    </Title>
-                    <AwesomeIcon name='ellipsis-v' style={{ marginRight: "10px", fontSize: "1.3rem" }} />
-                </Card.Content>
-            </Card>
-            <Card style={getStyle(appTheme, 'cuentas')}>
-                <Card.Content style={getStyle(appTheme, 'cuentasContainer')}>
-                    <Title style={getStyle(appTheme, 'cuentasText')}>
-                        <AwesomeIcon name='yen' style={{ marginRight: "2px", fontSize: "1.3rem" }} />55
-                        <br />
-                        <Paragraph>Cuenta en yenes</Paragraph>
-                    </Title>
-                    <AwesomeIcon name='ellipsis-v' style={{ marginRight: "10px", fontSize: "1.3rem" }} />
-                </Card.Content>
-            </Card>
-        </View>
-    );
-};
 
-const getStyle = (theme, component) => {
-    switch (component) {
-        case 'profileContent':
-            return ({
-                flex: 8,
-                backgroundColor: theme.primary,
-                width: '100%',
-            })
-        case 'cuentas':
-            return ({
-                backgroundColor: theme.container,
-                margin: '20px',
-            })
-        case 'cuentasContainer':
-            return ({
-                backgroundColor: theme.container,
-                flex: 1,
-                flexDirection: 'row',
-                justifyContent: 'space-between'
-            })
-        case 'cuentasText':
-            return ({
-                color: theme.link,
-                marginLeft: 12
-            })
-    }
+    const styles = getStyle(appTheme)
+
+    return (
+        <View style={styles.container}>
+            <Title style={styles.text}>Tus Cuentas</Title>
+            <View style={styles.card}>
+                <View style={styles.leftContainer}>
+                    <Title style={styles.text}>
+                        <AwesomeIcon name='dollar' />800
+                    </Title>
+                    <Text style={styles.text}>Cuenta en dolares</Text>
+                </View>
+                <View style={styles.rightContainer}>
+                    <Button color={appTheme.link}>
+                        <AwesomeIcon name='ellipsis-v' style={{ marginRight: 10 }} />
+                    </Button>
+                </View>
+            </View>
+            <View style={styles.card}>
+                <View style={styles.leftContainer}>
+                    <Title style={styles.text}>
+                        <AwesomeIcon name='euro' />1900
+                    </Title>
+                    <Text style={styles.text}>Cuenta en dolares</Text>
+                </View>
+                <View style={styles.rightContainer}>
+                    <Button color={appTheme.link}>
+                        <AwesomeIcon name='ellipsis-v' style={{ marginRight: 10 }} />
+                    </Button>
+                </View>
+            </View>
+            <View style={styles.card}>
+                <View style={styles.leftContainer}>
+                    <Title style={styles.text}>
+                        <AwesomeIcon name='yen' />55
+                    </Title>
+                    <Text style={styles.text}>Cuenta en dolares</Text>
+                </View>
+                <View style={styles.rightContainer}>
+                    <Button color={appTheme.link}>
+                        <AwesomeIcon name='ellipsis-v' style={{ marginRight: 10 }} />
+                    </Button>
+                </View>
+            </View>
+        </View>
+    )
 }
+
+const getStyle = theme => ({
+    container:{
+        backgroundColor: theme.secondary,
+        height: '100%'
+    },
+    card: {
+        backgroundColor: theme.container,
+        width: '90%',
+        padding: 25,
+        margin: 10,
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+    },
+    text: {
+        color: theme.textPrimary,
+    },
+    leftContainer: {
+        flex: 1,
+        flexDirection: 'column',
+    },
+    rightContainer: {
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'flex-end',
+    }
+})
 
 export default ProfileContent;

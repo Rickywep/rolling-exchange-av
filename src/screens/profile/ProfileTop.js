@@ -6,7 +6,11 @@ export default function ProfileTop({ appTheme, updateTheme }) {
     return (
         <Fragment>
             <Appbar.Header style={getStyle(appTheme, 'headerProfile')}>
-              <Avatar.Image size={40} style={{marginLeft:'10px', backgroundColor:'white'}} source="https://img.icons8.com/plasticine/2x/user.png"/>
+                <Avatar.Image 
+                    size={40} 
+                    style={{ marginLeft: 10, backgroundColor: 'white' }} 
+                    source={require('../../assets/user.png')}
+                />
                 <Appbar.Content title="Ricardo Moreno" subtitle={'Ultima actualización 4 de 30 de Julio de 200'} />
                 <Button
                     color={appTheme.link}
@@ -23,8 +27,8 @@ const getStyle = (theme, component) => {
     switch (component) {
         case 'headerProfile':
             return ({
-                backgroundColor: theme.secondary,
-                height: '100px',
+                backgroundColor: theme.background,
+                height: 100,
 
             })
         case 'button':
