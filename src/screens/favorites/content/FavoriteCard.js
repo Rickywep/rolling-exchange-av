@@ -15,7 +15,7 @@ const FavoriteCard = ({
   const styles = getStyle(appTheme)
 
   let url = ''
-  switch(flag) {
+  switch (flag) {
     case 'ars':
       url = flags.ars
       break
@@ -28,14 +28,35 @@ const FavoriteCard = ({
     case 'usd':
       url = flags.usd
       break
+    case 'gbp':
+      url = flags.gbp
+      break
+    case 'aud':
+      url = flags.aud
+      break
+    case 'cad':
+      url = flags.cad
+      break
+    case 'chf':
+      url = flags.chf
+      break
+    case 'cnh':
+      url = flags.cnh
+      break
+    case 'uyu':
+      url = flags.uyu
+      break
+    case 'clp':
+      url = flags.clp
+      break
   }
 
   const onTouchStar = () => {
-    addFavoriteCurrency({name: name, flag: flag})
+    addFavoriteCurrency({ name: name, flag: flag })
     updateCurrency(name, isFavorite)
   }
 
-  return(
+  return (
     <View style={styles.card}>
 
       <View style={styles.leftContainer}>

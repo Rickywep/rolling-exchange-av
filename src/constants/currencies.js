@@ -2,18 +2,57 @@ const currencies = [
   {
     name: 'ARS',
     flag: 'ars',
+    nickname: 'pesos argentinos',
   },
   {
     name: 'USD',
     flag: 'usd',
+    nickname: 'dolares americanos',
   },
   {
     name: 'EUR',
     flag: 'eur',
+    nickname: 'euros',
   },
   {
     name: 'JPY',
     flag: 'jpy',
+    nickname: 'yenes japonés',
+  },
+  {
+    name: 'GBP',
+    flag: 'gbp',
+    nickname: 'libra esterlina',
+  },
+  {
+    name: 'AUD',
+    flag: 'aud',
+    nickname: 'dolares australianos',
+  },
+  {
+    name: 'CAD',
+    flag: 'cad',
+    nickname: 'dolares canadienses',
+  },
+  {
+    name: 'CHF',
+    flag: 'chf',
+    nickname: 'franco suizo',
+  },
+  {
+    name: 'CNH',
+    flag: 'cnh',
+    nickname: 'yuan chino',
+  },
+  {
+    name: 'UYU',
+    flag: 'uyu',
+    nickname: 'pesos uruguayos',
+  },
+  {
+    name: 'CLP',
+    flag: 'clp',
+    nickname: 'pesos chilenos',
   },
 ]
 
