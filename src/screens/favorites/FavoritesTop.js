@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
-import { View } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { StyleSheet, View } from 'react-native'
 import { TextInput, Button } from 'react-native-paper'
 
-const FavoritesTop = ({ appTheme, goCurrency }) => {
+const FavoritesTop = ({ appTheme, goCurrency, searchCurrency }) => {
   const styles = getStyle(appTheme)
   const [ input, setInput ] = useState('')
+
+  useEffect(
+    () => searchCurrency(input)
+    , [input]
+  )
 
   return(
     <View style={styles.favoritesSearchbar}>
@@ -23,20 +28,22 @@ const FavoritesTop = ({ appTheme, goCurrency }) => {
   )
 }
 
-const getStyle = theme => ({
-  favoritesSearchbar: {
-    flex: 1.6,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-    width: '100%',
-    backgroundColor: theme.background,
-  },
-  input: {
-    width: '60%',
-    paddingBottom: 10,
-    height: 60
-  }
-})
+const getStyle = theme => (
+  StyleSheet.create({
+    favoritesSearchbar: {
+      flex: 1.6,
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'row',
+      width: '100%',
+      backgroundColor: theme.secondary,
+    },
+    input: {
+      width: '60%',
+      paddingBottom: 10,
+      height: 60
+    }
+  })
+)
 
 export default FavoritesTop

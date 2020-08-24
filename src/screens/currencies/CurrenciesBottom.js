@@ -4,7 +4,7 @@ import 'moment/locale/es'
 import { StyleSheet, View, Text } from 'react-native'
 import { Button } from 'react-native-paper'
 
-const CurrenciesBottom = ({ appTheme, updateTheme, updateRates, lastRates }) => {
+const CurrenciesBottom = ({ appTheme, updateRates, lastRates }) => {
   
   const styles = getStyle(appTheme)
 
