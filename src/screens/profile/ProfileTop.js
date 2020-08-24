@@ -11,7 +11,7 @@ export default function ProfileTop({ appTheme, updateTheme }) {
                     style={{ marginLeft: 10, backgroundColor: 'white' }} 
                     source={require('../../assets/user.png')}
                 />
-                <Appbar.Content title="Ricardo Moreno" subtitle={'Ultima actualización 4 de 30 de Julio de 200'} />
+                <Appbar.Content title="Ricardo Moreno" />
                 <Button
                     color={appTheme.link}
                     icon="theme-light-dark"

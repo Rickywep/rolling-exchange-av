@@ -2,20 +2,21 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import React, { useState, Fragment } from 'react';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import moment from 'moment'
 import CurrenciesTop from '../screens/currencies/CurrenciesTop';
 import CurrenciesBottom from '../screens/currencies/CurrenciesBottom'
 import CurrenciesContainer from '../screens/currencies/content/CurrenciesContainer';
 import FavoritesTop from '../screens/favorites/FavoritesTop';
 import FavoritesContainer from '../screens/favorites/content/FavoritesContainer';
-import currencies from '../constants/currencies';
+import { currencies, initialRates } from '../constants/currencies';
 import { darkTheme } from '../constants/colors'
 import { lightTheme } from '../constants/colors'
 import { darkTheme as defaultTheme } from '../constants/colors'
 import ProfileTab from './ProfileTab';
 
-function TabOne({ appTheme, fromCurrency, setFromCurrency, amount, setAmount, allCurrencies, updateTheme }) {
+function TabOne({ appTheme, fromCurrency, setFromCurrency, amount, setAmount, allCurrencies, updateTheme, updateRates, lastRates }) {
   const navigation = useNavigation();
-  const goTwo = () => navigation.navigate('Two')
+  const goCurrencies = () => navigation.navigate('Currencies')
   return (
     <Fragment>
       <CurrenciesTop
@@ -24,15 +25,22 @@ function TabOne({ appTheme, fromCurrency, setFromCurrency, amount, setAmount, al
         setFromCurrency={setFromCurrency}
         amount={amount}
         setAmount={setAmount}
+        updateRates={updateRates}
       />
       <CurrenciesContainer
         appTheme={appTheme}
         fromCurrency={fromCurrency}
         amount={amount}
-        goTwo={goTwo}
+        goCurrencies={goCurrencies}
         allCurrencies={allCurrencies}
+        lastRates={lastRates}
       />
-      {/* <CurrenciesBottom appTheme={appTheme} updateTheme={updateTheme} /> */}
+      <CurrenciesBottom
+        appTheme={appTheme}
+        updateTheme={updateTheme}
+        updateRates={updateRates}
+        lastRates={lastRates}
+      />
     </Fragment>
   );
 }
@@ -60,7 +68,8 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
 
-  const [fromCurrency, setFromCurrency] = useState('ars')
+  const [lastRates, setLastRates] = useState(initialRates)
+  const [fromCurrency, setFromCurrency] = useState('usd')
   const [amount, setAmount] = useState('')
   const [favoriteCurrencies, setFavoriteCurrencies] = useState([])
   const [allCurrencies, setAllCurrencies] =
@@ -69,6 +78,17 @@ export default function App() {
   const updateTheme = () => {
     appTheme.name === 'darkTheme' ? setAppTheme(lightTheme) : setAppTheme(darkTheme)
   }
+
+  const updateRates = () => {
+    fetch(`https://api.exchangerate.host/latest?base=${fromCurrency}`)
+      .then(res => res.json())
+      .then(responseJson => {
+        setLastRates({ ...responseJson, hour: moment().format('H:mm:ss') })
+      })
+      .catch(e => {
+        console.log('error: ', e)
+      })
+    }
 
   const addFavoriteCurrency = newCurrency => {
     setFavoriteCurrencies(prevState => [...prevState, newCurrency])
@@ -95,9 +115,9 @@ export default function App() {
               iconName = focused
                 ? 'ios-wallet'
                 : 'ios-wallet';
-            } else if (route.name === 'Two') {
+            } else if (route.name === 'Currencies') {
               iconName = focused ? 'ios-list-box' : 'ios-list';
-            }else if (route.name === 'Profile') {
+            } else if (route.name === 'Profile') {
               iconName = focused ? 'ios-person' : 'ios-person';
             }
             // You can return any component that you like here!
@@ -114,9 +134,11 @@ export default function App() {
       >
         <Tab.Screen
           name="Profile"
-          children={()=> <ProfileTab
+          children={() => <ProfileTab
             appTheme={appTheme}
             updateTheme={updateTheme}
+            updateRates={updateRates}
+            lastRates={lastRates}
           />}
         />
         <Tab.Screen
@@ -129,10 +151,12 @@ export default function App() {
             setAmount={setAmount}
             allCurrencies={allCurrencies}
             updateTheme={updateTheme}
+            updateRates={updateRates}
+            lastRates={lastRates}
           />}
         />
         <Tab.Screen
-          name="Two"
+          name="Currencies"
           children={() => <TabTwo
             appTheme={appTheme}
             allCurrencies={allCurrencies}

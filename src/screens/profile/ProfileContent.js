@@ -62,13 +62,13 @@ const getStyle = theme => ({
         backgroundColor: theme.container,
         width: '90%',
         padding: 25,
-        margin: 10,
+        margin: 20,
         flexDirection: 'row',
-        justifyContent: 'flex-start',
         alignItems: 'center',
     },
     text: {
         color: theme.textPrimary,
+        marginLeft: 10,
     },
     leftContainer: {
         flex: 1,

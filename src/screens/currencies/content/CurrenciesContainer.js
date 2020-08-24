@@ -3,13 +3,13 @@ import { View, Text, ScrollView } from 'react-native'
 import { Button } from 'react-native-paper'
 import CurrencyCard from './CurrencyCard';
 
-const CurrenciesContainer = ({ appTheme, changeScreen, fromCurrency, amount, allCurrencies, lastRates, goTwo }) => {
+const CurrenciesContainer = ({ appTheme, fromCurrency, amount, allCurrencies, lastRates, goCurrencies }) => {
   const styles = getStyle(appTheme)
 
   return(
     <View style={styles.currenciesContainer}>
       <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
-        <Button onPress={goTwo}>
+        <Button onPress={goCurrencies}>
           <Text style={styles.buttonText}>Agregar nueva moneda</Text>
         </Button>
         {

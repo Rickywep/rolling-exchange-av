@@ -1,43 +1,50 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import moment from 'moment'
+import 'moment/locale/es'
+import { StyleSheet, View, Text } from 'react-native'
 import { Button } from 'react-native-paper'
 
-const CurrenciesTop = ({ appTheme, updateTheme }) => (
-  <View style={getStyle(appTheme, 'bottomContainer')}>
-    <Button color={appTheme.link} icon="update" style={getStyle(appTheme, 'button')} />
-    <View>
-      <Text style={getStyle(appTheme, 'updateText')}>Ultima actualización</Text>
-      <Text style={getStyle(appTheme, 'updateText')}>4 de Julio de 2020</Text>
-    </View>
-    <Button
-      color={appTheme.link}
-      icon="theme-light-dark"
-      style={getStyle(appTheme, 'button')}
-      onPress={updateTheme}
-    />
-  </View>
-)
+const CurrenciesBottom = ({ appTheme, updateTheme, updateRates, lastRates }) => {
+  
+  const styles = getStyle(appTheme)
 
-const getStyle = (theme, component) => {
-  switch(component) {
-    case 'bottomContainer':
-      return({
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        flexDirection: 'row',
-        width: '100%',
-        backgroundColor: theme.primary,
-      })
-    case 'updateText':
-      return({
-        color: theme.textPrimary,
-      })
-    case 'button':
-      return({
-        paddingLeft: 15,
-      })
-  }
+  return(
+    <View style={styles.bottomContainer}>
+      
+      <View>
+        <Text style={styles.updateText}>Ultima actualización</Text>
+        <Text style={styles.updateText}>{moment(lastRates.date).locale('es').format('LL')}   -   {lastRates.hour}</Text>
+      </View>
+      <Button
+        color={appTheme.link}
+        icon="update"
+        style={styles.button}
+        onPress={updateRates}
+      />
+    </View>
+  )
 }
 
-export default CurrenciesTop
+const getStyle = theme => (
+  StyleSheet.create({
+    bottomContainer: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      flexDirection: 'row',
+      width: '100%',
+      backgroundColor: theme.background,
+    },
+    updateText: {
+      color: theme.textPrimary,
+      textAlign: 'left',
+      marginLeft: 30
+    },
+    button: {
+      paddingLeft: 15,
+      marginRight: 15
+    }
+  })
+) 
+
+export default CurrenciesBottom
