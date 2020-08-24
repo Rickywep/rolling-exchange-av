@@ -8,7 +8,7 @@ const CurrencyCard = ({ name, flag, appTheme, fromCurrency, amount, lastRates })
   const styles = getStyle(appTheme)
   let url = ''
   let rate = 0
-  switch(flag) {
+  switch (flag) {
     case 'ars':
       url = flags.ars
       rate = lastRates.rates.ARS
@@ -25,9 +25,37 @@ const CurrencyCard = ({ name, flag, appTheme, fromCurrency, amount, lastRates })
       url = flags.usd
       rate = lastRates.rates.USD
       break
+    case 'gbp':
+      url = flags.gbp
+      rate = lastRates.rates.GBP
+      break
+    case 'aud':
+      url = flags.aud
+      rate = lastRates.rates.AUD
+      break
+    case 'cad':
+      url = flags.cad
+      rate = lastRates.rates.CAD
+      break
+    case 'chf':
+      url = flags.chf
+      rate = lastRates.rates.CHF
+      break
+    case 'cnh':
+      url = flags.cnh
+      rate = lastRates.rates.CNH
+      break
+    case 'uyu':
+      url = flags.uyu
+      rate = lastRates.rates.UYU
+      break
+    case 'clp':
+      url = flags.clp
+      rate = lastRates.rates.CLP
+      break
   }
 
-  return(
+  return (
     <View style={styles.card}>
       <View style={styles.leftContainer}>
         <Image
@@ -43,7 +71,7 @@ const CurrencyCard = ({ name, flag, appTheme, fromCurrency, amount, lastRates })
               <Text style={styles.text}>{getCurrencySymbol(flag)} {getExchange(fromCurrency, flag, rate, amount)}</Text>
               <Text style={styles.text}>{getCurrencyName(flag)}</Text>
             </>
-          :
+            :
             null
         }
       </View>
