@@ -14,6 +14,7 @@ import { darkTheme } from '../constants/colors'
 import { lightTheme } from '../constants/colors'
 import { darkTheme as defaultTheme } from '../constants/colors'
 import ProfileTab from './ProfileTab';
+import GlobalTab from './GlobalTab';
 
 function TabOne({ appTheme, fromCurrency, setFromCurrency, amount, setAmount, allCurrencies, updateTheme, updateRates, lastRates }) {
   const navigation = useNavigation();
@@ -188,6 +189,8 @@ export default function App() {
               iconName = focused ? 'ios-list-box' : 'ios-list';
             } else if (route.name === 'Profile') {
               iconName = focused ? 'ios-person' : 'ios-person';
+            } else if (route.name === 'Global') {
+              iconName = focused ? 'ios-globe' : 'ios-globe';
             }
             // You can return any component that you like here!
             return <Ionicons name={iconName} size={size} color={color} />;
@@ -232,6 +235,12 @@ export default function App() {
             addFavoriteCurrency={addFavoriteCurrency}
             updateCurrency={updateCurrency}
             searchCurrency={searchCurrency}
+          />}
+        />
+        <Tab.Screen
+          name="Global"
+          children={() => <GlobalTab
+            appTheme={appTheme}
           />}
         />
       </Tab.Navigator>

@@ -3,57 +3,134 @@ const currencies = [
     name: 'ARS',
     flag: 'ars',
     nickname: 'pesos argentinos',
+    coordinate: {
+      latitude: -40.02100813327109,
+      longitude: -68.80773849785326,
+    },
+    nameCountry: "Argentina",
+    currency: "ars",
+    image: require('../assets/flags/ars.png')
   },
   {
     name: 'USD',
     flag: 'usd',
-    nickname: 'dolares americanos',
+    nickname: 'dolares estadounidenses',
+    coordinate: {
+      latitude: 40.246665,
+      longitude: -100.6763653,
+    },
+    nameCountry: "Estados Unidos",
+    currency: "usd",
+    image: require('../assets/flags/usd.png')
   },
   {
     name: 'EUR',
     flag: 'eur',
     nickname: 'euros',
+    coordinate: {
+      latitude: 48.1289274,
+      longitude: 6.1510539,
+    },
+    nameCountry: "Europa",
+    currency: "eur",
+    image: require('../assets/flags/eur.png')
   },
   {
     name: 'JPY',
     flag: 'jpy',
     nickname: 'yenes japonés',
+    coordinate: {
+      latitude: 32.6944371,
+      longitude: -220.420348,
+    },
+    nameCountry: "Japon",
+    currency: "jpy",
+    image: require('../assets/flags/jpy.png')
   },
   {
     name: 'GBP',
     flag: 'gbp',
     nickname: 'libra esterlina',
+    coordinate: {
+      latitude: 52.2313208,
+      longitude: -3.4313563,
+    },
+    nameCountry: "Reino Unido",
+    currency: "gbp",
+    image: require('../assets/flags/gbp.png')
   },
   {
     name: 'AUD',
     flag: 'aud',
     nickname: 'dolares australianos',
+    coordinate: {
+      latitude: -26.767416,
+      longitude: 133.826447,
+    },
+    nameCountry: "Australia",
+    currency: "aud",
+    image: require('../assets/flags/aud.png')
   },
   {
     name: 'CAD',
     flag: 'cad',
     nickname: 'dolares canadienses',
+    coordinate: {
+      latitude: 58.702011,
+      longitude: -112.561407,
+    },
+    nameCountry: "Canadá",
+    currency: "cad",
+    image: require('../assets/flags/cad.png')
   },
   {
     name: 'CHF',
     flag: 'chf',
     nickname: 'franco suizo',
+    coordinate: {
+      latitude: 46.714670, 
+      longitude: 7.929393
+    },
+    nameCountry: "Suiza",
+    currency: "chf",
+    image: require('../assets/flags/chf.png')
   },
   {
-    name: 'CNH',
+    name: 'CNH ',
     flag: 'cnh',
     nickname: 'yuan chino',
+    coordinate: {
+      latitude: 33.320375,  
+      longitude: 103.893229
+    },
+    nameCountry: "China",
+    currency: "cnh",
+    image: require('../assets/flags/cnh.png')
   },
   {
     name: 'UYU',
     flag: 'uyu',
     nickname: 'pesos uruguayos',
+    coordinate: {
+      latitude: -33.270041895048514,
+      longitude: -55.76560847461223,
+    },
+    nameCountry: "Uruguay",
+    currency: "uyu",
+    image: require('../assets/flags/uyu.png')
   },
   {
     name: 'CLP',
     flag: 'clp',
     nickname: 'pesos chilenos',
-  },
+    coordinate: {
+      latitude: -27.33195746282421,
+      longitude: -70.01604784280062,
+    },
+    nameCountry: "Chile",
+    currency: "clp",
+    image: require('../assets/flags/clp.png')
+  }
 ]
 
 const initialRates = {
