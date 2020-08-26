@@ -1,74 +1,17 @@
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import React, { useState, Fragment } from 'react';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import moment from 'moment';
-import CurrenciesTop from '../screens/currencies/CurrenciesTop';
-import CurrenciesBottom from '../screens/currencies/CurrenciesBottom'
-import CurrenciesContainer from '../screens/currencies/content/CurrenciesContainer';
-import FavoritesTop from '../screens/favorites/FavoritesTop';
-import FavoritesContainer from '../screens/favorites/content/FavoritesContainer';
 import { initialRates } from '../constants/currencies';
 import AsyncStorage from '@react-native-community/async-storage'
 import { darkTheme } from '../constants/colors'
 import { lightTheme } from '../constants/colors'
-import ProfileTab from './ProfileTab';
-import GlobalTab from './GlobalTab';
+import { ProfileTab, GlobalTab, CurrenciesTab, FavoritesTab } from './index';
 
-function TabOne({ appTheme, fromCurrency, setFromCurrency, amount, setAmount, allCurrencies, updateTheme, updateRates, lastRates }) {
-  const navigation = useNavigation();
-  const goCurrencies = () => navigation.navigate('Currencies')
-  return (
-    <Fragment>
-      <CurrenciesTop
-        appTheme={appTheme}
-        fromCurrency={fromCurrency}
-        setFromCurrency={setFromCurrency}
-        amount={amount}
-        setAmount={setAmount}
-        updateRates={updateRates}
-      />
-      <CurrenciesContainer
-        appTheme={appTheme}
-        fromCurrency={fromCurrency}
-        amount={amount}
-        goCurrencies={goCurrencies}
-        allCurrencies={allCurrencies}
-        lastRates={lastRates}
-      />
-      <CurrenciesBottom
-        appTheme={appTheme}
-        updateTheme={updateTheme}
-        updateRates={updateRates}
-        lastRates={lastRates}
-      />
-    </Fragment>
-  );
-}
-
-function TabTwo({ appTheme, allCurrencies, addFavoriteCurrency, updateCurrency, searchCurrency }) {
-  const navigation = useNavigation();
-  const goCurrency = () => navigation.navigate('Currency')
-
-  return (
-    <Fragment>
-      <FavoritesTop
-        appTheme={appTheme}
-        goCurrency={goCurrency}
-        searchCurrency={searchCurrency}
-      />
-      <FavoritesContainer
-        appTheme={appTheme}
-        allCurrencies={allCurrencies}
-        addFavoriteCurrency={addFavoriteCurrency}
-        updateCurrency={updateCurrency}
-      />
-    </Fragment>
-  );
-}
 const Tab = createBottomTabNavigator();
 
-export default function App({ appTheme, setAppTheme, deviceCurrencies, allCurrencies, setAllCurrencies, FAV_CURRENCIES, THEME }) {
+export default function Tabs({ appTheme, setAppTheme, deviceCurrencies, allCurrencies, setAllCurrencies, FAV_CURRENCIES, THEME }) {
 
   const [lastRates, setLastRates] = useState(initialRates)
   const [fromCurrency, setFromCurrency] = useState('usd')
@@ -79,7 +22,6 @@ export default function App({ appTheme, setAppTheme, deviceCurrencies, allCurren
   const searchCurrency = term => {
     let currentCurrencies = deviceCurrencies
     let resultCurrencies = []
-
     if (term !== '' && term.length > 2) {
       resultCurrencies = currentCurrencies.filter(
         currency => {
@@ -91,7 +33,6 @@ export default function App({ appTheme, setAppTheme, deviceCurrencies, allCurren
     } else {
       resultCurrencies = deviceCurrencies
     }
-
     updateList(resultCurrencies, term)
   }
 
@@ -142,7 +83,6 @@ export default function App({ appTheme, setAppTheme, deviceCurrencies, allCurren
   }
 
   return (
-
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
@@ -159,15 +99,14 @@ export default function App({ appTheme, setAppTheme, deviceCurrencies, allCurren
             } else if (route.name === 'Global') {
               iconName = focused ? 'ios-globe' : 'ios-globe';
             }
-            // You can return any component that you like here!
             return <Ionicons name={iconName} size={size} color={color} />;
           },
         })}
         tabBarOptions={{
-          activeTintColor: 'white',
-          inactiveTintColor: 'gray',
+          activeTintColor: '#fff',
+          inactiveTintColor: '#ccc',
           style: {
-            backgroundColor: `#03071E`,
+            backgroundColor: appTheme.background,
           },
         }}
       >
@@ -182,7 +121,7 @@ export default function App({ appTheme, setAppTheme, deviceCurrencies, allCurren
         />
         <Tab.Screen
           name="Currency"
-          children={() => <TabOne
+          children={() => <CurrenciesTab
             appTheme={appTheme}
             fromCurrency={fromCurrency}
             setFromCurrency={setFromCurrency}
@@ -196,7 +135,7 @@ export default function App({ appTheme, setAppTheme, deviceCurrencies, allCurren
         />
         <Tab.Screen
           name="Currencies"
-          children={() => <TabTwo
+          children={() => <FavoritesTab
             appTheme={appTheme}
             allCurrencies={filteredCurrencies}
             addFavoriteCurrency={addFavoriteCurrency}

@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import ProfileTop from '../screens/profile/ProfileTop'
 import ProfileContent from '../screens/profile/ProfileContent'
 
-export default function ProfileTab({ appTheme, updateTheme }) {
+export default ({ appTheme, updateTheme }) => {
     return (
         <Fragment>
             <ProfileTop

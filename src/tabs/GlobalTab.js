@@ -3,7 +3,7 @@ import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet, Dimensions, View, Text, Image } from 'react-native';
 import {currencies} from '../constants/currencies'
 
-export default function ProfileTab({ appTheme }) {
+export default ({ appTheme }) => {
     return (
         <MapView
             style={styles.map}
