@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { View, Text, Image, TouchableOpacity } from 'react-native'
+import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native'
 import { TextInput, Button } from 'react-native-paper'
+import { currencies } from '../../constants/currencies'
 
 const CurrenciesTop = ({ appTheme, fromCurrency, setFromCurrency, amount, setAmount, updateRates }) => {
   const styles = getStyle(appTheme)
-  const [ showSelection, setShowSelection ] = useState(false)
+  const [showSelection, setShowSelection] = useState(false)
   const requireFlag = {
     ars: require('../../assets/flags/ars.png'),
     eur: require('../../assets/flags/eur.png'),
@@ -27,7 +28,7 @@ const CurrenciesTop = ({ appTheme, fromCurrency, setFromCurrency, amount, setAmo
     updateRates()
   }
 
-  return(
+  return (
     <>
       <View style={styles.topContainer}>
         <View style={styles.fromCurrency}>
@@ -36,7 +37,7 @@ const CurrenciesTop = ({ appTheme, fromCurrency, setFromCurrency, amount, setAmo
               source={requireFlag[fromCurrency]}
               style={{ width: 50, height: 50 }}
             />
-            <Text style={styles.fromCurrencyName}>{fromCurrency.toUpperCase()}</Text>
+            <Text>{fromCurrency.toUpperCase()}</Text>
           </TouchableOpacity>
         </View>
 
@@ -50,7 +51,7 @@ const CurrenciesTop = ({ appTheme, fromCurrency, setFromCurrency, amount, setAmo
         {
           amount !== '' ?
             <Button onPress={() => setAmount('')} icon='close' color={appTheme.link} />
-          :
+            :
             <View style={{ width: 65 }} />
         }
       </View>
@@ -60,40 +61,22 @@ const CurrenciesTop = ({ appTheme, fromCurrency, setFromCurrency, amount, setAmo
           <Text style={styles.selectionText}>Seleccioná una moneda</Text>
           <View style={styles.selectionCurrencies}>
             <View style={styles.selectionCurrencyButton}>
-              <TouchableOpacity onPress={() => onHandleSelectCurrency('ars')}>
-                <Image
-                  source={requireFlag['ars']}
-                  style={{ width: 50, height: 50 }}
-                />
-                <Text style={styles.fromCurrencyName}>{'ars'.toUpperCase()}</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.selectionCurrencyButton}>
-              <TouchableOpacity onPress={() => onHandleSelectCurrency('usd')}>
-                <Image
-                  source={requireFlag['usd']}
-                  style={{ width: 50, height: 50 }}
-                />
-                <Text style={styles.fromCurrencyName}>{'usd'.toUpperCase()}</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.selectionCurrencyButton}>
-              <TouchableOpacity onPress={() => onHandleSelectCurrency('eur')}>
-                <Image
-                  source={requireFlag['eur']}
-                  style={{ width: 50, height: 50 }}
-                />
-                <Text style={styles.fromCurrencyName}>{'eur'.toUpperCase()}</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.selectionCurrencyButton}>
-            <TouchableOpacity onPress={() => onHandleSelectCurrency('jpy')}>
-              <Image
-                source={requireFlag['jpy']}
-                style={{ width: 50, height: 50 }}
-              />
-              <Text style={styles.fromCurrencyName}>{'jpy'.toUpperCase()}</Text>
-            </TouchableOpacity>
+              <ScrollView
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+              >
+                {
+                  currencies.map(x =>
+                    <TouchableOpacity key={x.name} onPress={() => onHandleSelectCurrency(x.currency)}>
+                      <Image
+                        source={x.image}
+                        style={{ width: 50, height: 50, marginLeft: 20 }}
+                      />
+                      <Text style={styles.fromCurrencyName}>{x.currency.toUpperCase()}</Text>
+                    </TouchableOpacity>
+                  )
+                }
+              </ScrollView>
             </View>
           </View>
         </View>
@@ -127,6 +110,7 @@ const getStyle = theme => ({
     color: theme.link,
     textAlign: 'center',
     marginTop: 5,
+    marginLeft: 20
   },
   selection: {
     width: '100%',
@@ -147,11 +131,10 @@ const getStyle = theme => ({
     paddingBottom: 10,
   },
   selectionCurrencyButton: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    width: '25%',
+    backgroundColor: 'rgba(0,0,0,0.1)',
     paddingTop: 10,
+    paddingBottom: 10,
+
   },
   fromCurrencyButton: {
     alignItems: 'center',
