@@ -1,5 +1,5 @@
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import React, { useState, Fragment, useEffect } from 'react';
+import React, { useState, Fragment } from 'react';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import moment from 'moment';
@@ -8,11 +8,10 @@ import CurrenciesBottom from '../screens/currencies/CurrenciesBottom'
 import CurrenciesContainer from '../screens/currencies/content/CurrenciesContainer';
 import FavoritesTop from '../screens/favorites/FavoritesTop';
 import FavoritesContainer from '../screens/favorites/content/FavoritesContainer';
-import { currencies, initialRates } from '../constants/currencies';
+import { initialRates } from '../constants/currencies';
 import AsyncStorage from '@react-native-community/async-storage'
 import { darkTheme } from '../constants/colors'
 import { lightTheme } from '../constants/colors'
-import { darkTheme as defaultTheme } from '../constants/colors'
 import ProfileTab from './ProfileTab';
 import GlobalTab from './GlobalTab';
 
@@ -69,45 +68,13 @@ function TabTwo({ appTheme, allCurrencies, addFavoriteCurrency, updateCurrency, 
 }
 const Tab = createBottomTabNavigator();
 
-const THEME = '@theme'
-const FAV_CURRENCIES = '@favCurrencies'
-
-export default function App() {
-
-  const defaultTheme = darkTheme
-  const defaultCurrencies = currencies.map(curr => ({ ...curr, isFavorite: false }))
-
-  const getTheme = async () => {
-    const theme = await AsyncStorage.getItem(THEME)
-    return theme !== null ? JSON.parse(theme) : defaultTheme
-  }
-  const getDeviceCurrencies = async () => {
-    const currencies = await AsyncStorage.getItem(FAV_CURRENCIES)
-    return currencies !== null ? JSON.parse(currencies) : defaultCurrencies
-  }
+export default function App({ appTheme, setAppTheme, deviceCurrencies, allCurrencies, setAllCurrencies, FAV_CURRENCIES, THEME }) {
 
   const [lastRates, setLastRates] = useState(initialRates)
   const [fromCurrency, setFromCurrency] = useState('usd')
   const [amount, setAmount] = useState('')
   const [favoriteCurrencies, setFavoriteCurrencies] = useState([])
-  const [allCurrencies, setAllCurrencies] = useState(defaultCurrencies)
-  const [deviceCurrencies, setDeviceCurrencies] = useState([])
   const [filteredCurrencies, setFilteredCurrencies] = useState([])
-  const [appTheme, setAppTheme] = useState(defaultTheme)
-
-  useEffect(() => {
-    getTheme().then(setAppTheme).catch(setAppTheme(defaultTheme))
-    getDeviceCurrencies().then(setDeviceCurrencies).catch(setDeviceCurrencies(defaultCurrencies))
-  }, [])
-  
-  // const clearAppData = async () => {
-  //   try {
-  //     const keys = await AsyncStorage.getAllKeys()
-  //     await AsyncStorage.multiRemove(keys)
-  //   } catch (e) {
-  //     console.log(e)
-  //   }
-  // }
 
   const searchCurrency = term => {
     let currentCurrencies = deviceCurrencies
@@ -173,11 +140,11 @@ export default function App() {
     setAllCurrencies(temp_allCurrencies)
     AsyncStorage.setItem(FAV_CURRENCIES, JSON.stringify(temp_allCurrencies))
   }
+
   return (
 
     <NavigationContainer>
       <Tab.Navigator
-        // style={getStyle(appTheme, 'topContainer')}
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
